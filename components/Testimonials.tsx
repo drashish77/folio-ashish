@@ -5,7 +5,7 @@ import Button from './Button'
 import test1 from '../app/asset/testimonial-1.jpg'
 import test2 from '../app/asset/testimonial-2.jpg'
 import test3 from '../app/asset/testimonial-3.jpg'
-import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion'
+import { AnimatePresence, motion, useScroll, useTransform } from 'motion/react'
 import Testimonial from './Testimonial'
 
 const testimonials = [
@@ -109,7 +109,7 @@ const Testimonials = () => {
 
           <div className='flex gap-4 mt-6 lg:mt-10'>
             <Button
-              className='rounded-full  h-10 w-10  p-0'
+              className='rounded-full bg-transparent hover:text-white  size-11  p-0'
               variant='secondary'
               onClick={handleClickPrev}
               iconAfter={
@@ -130,7 +130,7 @@ const Testimonials = () => {
               }
             />
             <Button
-              className='rounded-full  h-10 w-10 p-0'
+              className='rounded-full  bg-transparent hover:text-white size-11 p-0'
               variant='secondary'
               onClick={handleClickNext}
               iconAfter={

@@ -3,47 +3,31 @@ import Image from 'next/image'
 import React, { useEffect, useRef } from 'react'
 import Button from './Button'
 import heroImage from '../app/asset/hero-image.jpg'
-import {
-  motion,
-  stagger,
-  useAnimate,
-  useScroll,
-  useTransform
-} from 'framer-motion'
-import SplitType from 'split-type'
+import useTextRevealAnimation from '@/hooks/useTextRevealAnimation'
+import { motion, useScroll, useTransform } from 'motion/react'
 
 const Hero = () => {
-  const [titleScope, titleAnimate] = useAnimate()
+  const { scope, entranceAnimation } = useTextRevealAnimation()
   const scrollingDiv = useRef<HTMLDivElement>(null)
+
   const { scrollYProgress } = useScroll({
     target: scrollingDiv,
     offset: ['start end', 'end end']
   })
-  const portraitWidth = useTransform(scrollYProgress, [0, 1], ['100%', '240%'])
-  useEffect(() => {
-    new SplitType(titleScope.current, {
-      types: 'lines,words',
-      tagName: 'span'
-    })
 
-    titleAnimate(
-      titleScope.current.querySelectorAll('.word'),
-      {
-        transform: 'translateY(0)'
-      },
-      {
-        duration: 0.5,
-        delay: stagger(0.2)
-      }
-    )
-  }, [titleAnimate, titleScope])
+  const portraitWidth = useTransform(scrollYProgress, [0, 1], ['100%', '240%'])
+
+  useEffect(() => {
+    entranceAnimation()
+  }, [entranceAnimation])
+
   return (
-    <section className=''>
+    <section className='' id='#'>
       <div className='md:grid md:grid-cols-12 md:h-screen items-stretch sticky top-0'>
         <div className='md:col-span-7 flex flex-col justify-center'>
           <div className='container !max-w-full'>
             <motion.h1
-              ref={titleScope}
+              ref={scope}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               className='text-5xl md:text-6xl lg:text-7xl mt-40 md:mt-0'

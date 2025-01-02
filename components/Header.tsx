@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import React, { MouseEvent, useEffect, useState } from 'react'
 import Button from './Button'
-import { motion, useAnimate } from 'framer-motion'
+import { motion, useAnimate } from 'motion/react'
 import { navItems } from './Footer'
 
 const Header = () => {

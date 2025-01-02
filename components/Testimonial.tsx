@@ -1,4 +1,5 @@
-import { useTextRevealAnimation } from '@/hooks/hook'
+import useTextRevealAnimation from '@/hooks/useTextRevealAnimation'
+import { motion, usePresence } from 'motion/react'
 import { StaticImport } from 'next/dist/shared/lib/get-img-props'
 import Image from 'next/image'
 import React, { HTMLAttributes, useEffect } from 'react'
@@ -28,16 +29,39 @@ const Testimonial = (
     className,
     ...rest
   } = data
-  const { scope: quoteScope, entranceAnimation: quoteAnimate } =
-    useTextRevealAnimation()
-  const { scope: citeScope, entranceAnimation: citeAnimate } =
-    useTextRevealAnimation()
+
+  const {
+    scope: quoteScope,
+    entranceAnimation: quoteEntranceAnimation,
+    exitAnimation: quoteExitAnimation
+  } = useTextRevealAnimation()
+
+  const {
+    scope: citeScope,
+    entranceAnimation: citeEntranceAnimation,
+    exitAnimation: citeExitAnimation
+  } = useTextRevealAnimation()
+
+  const [isPresent, safeToRemove] = usePresence()
 
   useEffect(() => {
-    quoteAnimate().then(() => {
-      citeAnimate()
-    })
-  }, [quoteAnimate, citeAnimate])
+    if (isPresent) {
+      quoteEntranceAnimation().then(() => {
+        citeEntranceAnimation()
+      })
+    } else {
+      Promise.all([quoteExitAnimation(), citeExitAnimation()]).then(() =>
+        safeToRemove()
+      )
+    }
+  }, [
+    isPresent,
+    quoteEntranceAnimation,
+    citeEntranceAnimation,
+    quoteExitAnimation,
+    citeExitAnimation,
+    safeToRemove
+  ])
   return (
     <div
       className={twMerge(
@@ -46,7 +70,14 @@ const Testimonial = (
       )}
       {...rest}
     >
-      <div className='aspect-square md:aspect-[9/16] md:col-span-2'>
+      <div className='aspect-square md:aspect-[9/16] md:col-span-2 relative'>
+        <motion.div
+          className='absolute h-full bg-stone-900'
+          initial={{ width: '100%' }}
+          animate={{ width: 0 }}
+          exit={{ width: '100%' }}
+          transition={{ duration: 0.5 }}
+        ></motion.div>
         <Image
           src={image}
           alt={name}
