@@ -1,7 +1,16 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { Archivo } from 'next/font/google'
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
+const archivo = Archivo({
+  subsets: ["latin"],
+  variable: "--font-architects-daughter",
+  weight: "400",
+  display: "swap",
+});
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -26,9 +35,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${archivo.variable} antialiased bg-stone-200 h-screen text-stone-900`}
       >
+        <Header />
         {children}
+
       </body>
     </html>
   );
