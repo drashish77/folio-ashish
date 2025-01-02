@@ -1,16 +1,16 @@
 'use client'
 // import Image from 'next/image'
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import Button from './Button'
 import test1 from '../app/asset/testimonial-1.jpg'
 import test2 from '../app/asset/testimonial-2.jpg'
 import test3 from '../app/asset/testimonial-3.jpg'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion'
 import Testimonial from './Testimonial'
 
 const testimonials = [
   {
-    id: 1,
+    id: '1',
     name: 'Sarah Chen',
     company: 'Pixel Perfect',
     role: 'Head of Design',
@@ -20,7 +20,7 @@ const testimonials = [
     imagePositionY: 0.2
   },
   {
-    id: 2,
+    id: '2',
     name: 'Marcus Rodriguez',
     company: 'Craft Coffee Co.',
     role: 'Founder',
@@ -30,7 +30,7 @@ const testimonials = [
     imagePositionY: 0.1
   },
   {
-    id: 3,
+    id: '3',
     name: 'Emily Watson',
     company: 'Studio Minimal',
     role: 'Creative Director',
@@ -42,6 +42,7 @@ const testimonials = [
 ]
 
 const Testimonials = () => {
+  const [testimonialIndex, setTestimonialIndex] = useState(0)
   const titleRef = useRef<HTMLHeadingElement>(null)
   const { scrollYProgress } = useScroll({
     target: titleRef,
@@ -50,7 +51,17 @@ const Testimonials = () => {
   const transformTop = useTransform(scrollYProgress, [0, 1], ['0', '15%'])
   const transformBottom = useTransform(scrollYProgress, [0, 1], ['0', '-15%'])
 
-  const testimonialId = 1
+  const handleClickPrev = () => {
+    setTestimonialIndex((curr) =>
+      curr === 0 ? testimonials.length - 1 : curr - 1
+    )
+  }
+  const handleClickNext = () => {
+    setTestimonialIndex((curr) =>
+      curr === testimonials.length - 1 ? 0 : curr + 1
+    )
+  }
+
   return (
     <section className='section' id='testimonials'>
       <div className=''>
@@ -73,27 +84,34 @@ const Testimonials = () => {
         </h2>
         <div className='container'>
           <div className='mt-20'>
-            {testimonials.map(
-              ({ name, company, role, quote, image, imagePositionY, id }) =>
-                testimonialId === id && (
-                  <Testimonial
-                    name={name}
-                    company={company}
-                    role={role}
-                    quote={quote}
-                    image={image}
-                    imagePositionY={imagePositionY}
-                    id={id}
-                    key={id}
-                  />
-                )
-            )}
+            <AnimatePresence mode='wait' initial={false}>
+              {testimonials.map(
+                (
+                  { name, company, role, quote, image, imagePositionY, id },
+                  index
+                ) =>
+                  testimonialIndex == index && (
+                    <Testimonial
+                      name={name}
+                      company={company}
+                      role={role}
+                      quote={quote}
+                      image={image}
+                      imagePositionY={imagePositionY}
+                      id={id}
+                      // className='dfdfd'
+                      key={id}
+                    />
+                  )
+              )}
+            </AnimatePresence>
           </div>
 
           <div className='flex gap-4 mt-6 lg:mt-10'>
             <Button
               className='rounded-full  h-10 w-10  p-0'
               variant='secondary'
+              onClick={handleClickPrev}
               iconAfter={
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
@@ -114,6 +132,7 @@ const Testimonials = () => {
             <Button
               className='rounded-full  h-10 w-10 p-0'
               variant='secondary'
+              onClick={handleClickNext}
               iconAfter={
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
