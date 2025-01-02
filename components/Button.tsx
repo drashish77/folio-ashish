@@ -1,8 +1,4 @@
-import React, {
-  ButtonHTMLAttributes,
-  HtmlHTMLAttributes,
-  ReactNode
-} from 'react'
+import React, { ButtonHTMLAttributes, ReactNode } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 const Button = (

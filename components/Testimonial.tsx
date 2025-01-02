@@ -21,9 +21,9 @@ const Testimonial = (props: TestimonialTypes) => {
     quote,
     image,
     imagePositionY,
-    id,
+    id
     // className,
-    ...rest
+    // ...rest
   } = props
 
   return (

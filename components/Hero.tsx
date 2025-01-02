@@ -36,7 +36,7 @@ const Hero = () => {
         delay: stagger(0.2)
       }
     )
-  }, [])
+  }, [titleAnimate, titleScope])
   return (
     <section className=''>
       <div className='md:grid md:grid-cols-12 md:h-screen items-stretch sticky top-0'>
