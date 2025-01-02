@@ -188,9 +188,11 @@ const Header = () => {
                   />
                 </svg>
               </div>
-              <Button variant='primary' className=' hidden md:inline-flex '>
-                Contact me
-              </Button>
+              <Link href={'#contact'}>
+                <Button variant='primary' className=' hidden md:inline-flex '>
+                  Contact me
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

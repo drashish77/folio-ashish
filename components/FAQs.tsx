@@ -98,7 +98,7 @@ const FAQs = () => {
                 </div>
                 <Button
                   className={twMerge(
-                    'rounded-full bg-stone-200 hover:text-white  size-11  p-0 transition duration-300',
+                    'rounded-full bg-stone-200 hover:text-white  size-11  p-0 transition duration-300 flex-shrink-0',
                     faqIndex === selectedIndex && 'rotate-45 '
                   )}
                   variant='secondary'
