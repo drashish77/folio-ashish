@@ -20,9 +20,10 @@ const Intro: FC = () => {
       ref={sectionRef}
     >
       <div className='container'>
-        <h2 className='text-4xl md:text-7xl lg:text-8xl lg:w-4/5' ref={scope}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem velit
-          molestias impedit. Officia magnam amet suscipit quos quidem ut aut?
+        <h2 className='text-4xl md:text-7xl lg:text-8xl' ref={scope}>
+          I&apos; m a frontend developer specializing in crafting fast,
+          responsive, and SEO-friendly websites that elevate user engagement and
+          performance.
         </h2>
       </div>
     </section>

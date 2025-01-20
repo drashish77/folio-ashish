@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import React, { useEffect, useRef } from 'react'
 import Button from './Button'
-import heroImage from '../app/asset/hero-image.jpg'
+import heroImage from '../app/asset/hero-new.jpeg'
 import useTextRevealAnimation from '@/hooks/useTextRevealAnimation'
 import { motion, useScroll, useTransform } from 'motion/react'
 
@@ -32,7 +32,8 @@ const Hero = () => {
               animate={{ opacity: 1 }}
               className='text-5xl md:text-6xl lg:text-7xl mt-40 md:mt-0'
             >
-              Lorem ipsum dolor sit amet consectetur adipisicing
+              Creating responsive, optimized, and SEO-friendly websites for
+              seamless user experiences.
             </motion.h1>
 
             <div className='flex flex-col md:flex-row md:items-center mt-10 items-start gap-6'>
